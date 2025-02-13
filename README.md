@@ -1,5 +1,4 @@
 # CSK_Module_MultiUDPSocket
-## INFO: Draft version. Not further developed / tested so far! Check for available GitHub forks of this repository to see latest updates.
 
 Module to provide UDP socket functionality.
 
@@ -17,11 +16,6 @@ Tested on:
 |Device|Firmware|Module version
 |--|--|--|
 |e.g. SICK AppEngine|V1.5.0|V0.1.0|
-
-[***optionally***]
-Following CSK modules are used for this application via Git subtrees and should NOT be further developed within this repository (see [contribution guideline](https://github.com/SICKAppSpaceCodingStarterKit/.github/blob/main/Contribution_Guideline.md) of this GitHub organization):  
-
-  * CSK_Module_XYZ (release/tag v1.2.3)
 
 This module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of the modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  
