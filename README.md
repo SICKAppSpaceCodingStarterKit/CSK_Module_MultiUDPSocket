@@ -2,12 +2,10 @@
 
 Module to provide UDP socket functionality.
 
-*If available, please also add a screenshot/gif of the UI of the module here placed within /docu/media/ (see code)*
 ![](./docu/media/UI_Screenshot.png)
 
 ## How to Run
 
-[***...please fill with informations...***]  
 For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiUDPSocket/main/docu/CSK_Module_MultiUDPSocket.html) in the folder "docu".
 
 ## Information
@@ -15,7 +13,8 @@ For further information check out the [documentation](https://raw.githack.com/SI
 Tested on:
 |Device|Firmware|Module version
 |--|--|--|
-|e.g. SICK AppEngine|V1.5.0|V0.1.0|
+|SICK AppEngine|V1.8.0|V1.0.0|
+|SIM1012|V2.4.2|V1.0.0|
 
 This module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of the modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  

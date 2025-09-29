@@ -49,10 +49,9 @@ local multiUDPSocket_Instances = {} -- Handle all instances
 local multiUDPSocketController = require('Communication/MultiUDPSocket/MultiUDPSocket_Controller')
 
 if _G.availableAPIs.default and _G.availableAPIs.specific then
-  --local setInstanceHandle = require('Communication/MultiUDPSocket/FlowConfig/MultiUDPSocket_FlowConfig')
+  require('Communication/MultiUDPSocket/FlowConfig/MultiUDPSocket_FlowConfig')
   table.insert(multiUDPSocket_Instances, multiUDPSocket_Model.create(1))
   multiUDPSocketController.setMultiUDPSocket_Instances_Handle(multiUDPSocket_Instances) -- share handle of instances
-  --setInstanceHandle(multiUDPSocket_Instances)
 else
   _G.logger:warning("CSK_MultiUDPSocket: Relevant CROWN(s) not available on device. Module is not supported...")
 end

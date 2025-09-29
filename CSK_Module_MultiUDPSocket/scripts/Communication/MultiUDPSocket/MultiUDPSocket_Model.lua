@@ -67,24 +67,10 @@ function multiUDPSocket.create(multiUDPSocketInstanceNo)
 
   -- Parameters to be saved permanently if wanted
   self.parameters = {}
-  self.parameters.flowConfigPriority = CSK_FlowConfig ~= nil or false -- Status if FlowConfig should have priority for FlowConfig relevant configurations
-  self.parameters.registeredEvent = ''
-  self.parameters.processingFile = 'CSK_MultiUDPSocket_Processing'
+  self.parameters = self.helperFuncs.defaultParameters.getParameters() -- Load default parameters
 
-  self.parameters.ip = '255.255.255.255' -- IP to transmit to, 255.255.255.255 for broadcast
-  self.parameters.port = 23 -- Port to bind UDP
-  self.parameters.bindStatus = false -- Should the module try to bind UDP
+  -- Instance specific parameters
   self.parameters.interface = self.availableInterfaces[multiUDPSocketInstanceNo] -- Interface to use UDPSocket connection
-  self.parameters.packFormat = '' -- Format to pack data to send as binary content, like '>I2', leave empty if not needed
-
-  -- Manual receive function parameters
-  self.parameters.receiveQueueSize = 0 -- Receive queue size. Set to 0 to disable the queue and receiving from the receive()-function, which also increases performance if only receiving over OnReceive-event.
-  self.parameters.receiveTimeout = 0 -- Timeout in ms to wait for manual UDP receivements. 0 is default and means directly return
-  self.parameters.receiveDiscardIfFull = false -- Set to true to discard the newest item which is currently added instead of discarding the oldest element for manual UDP receivements.
-  self.parameters.receiveWarnOverruns = true -- Set to false to disable warning on overruns when using the receive()-function. Default is true.
-
-  -- List of events to register to and forward content to TCP/IP server
-  self.parameters.forwardEvents = {}
 
   -- Parameters to give to the processing script
   self.multiUDPSocketProcessingParams = Container.create()
@@ -105,20 +91,6 @@ function multiUDPSocket.create(multiUDPSocketInstanceNo)
 
   return self
 end
-
---[[
--- Function to do something
---@multiUDPSocket:doSomething()
-function multiUDPSocket:doSomething()
-  self.object:doSomething()
-end
-
--- Function to do something else
---@multiUDPSocket:doSomethingElse()
-function multiUDPSocket:doSomethingElse()
-  self:doSomething() --> access internal function
-end
-]]
 
 return multiUDPSocket
 

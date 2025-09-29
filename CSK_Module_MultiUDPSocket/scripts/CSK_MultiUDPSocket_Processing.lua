@@ -39,7 +39,6 @@ processingParams.receiveWarnOverruns = scriptParams:get('receiveWarnOverruns')
 processingParams.currentBindStatus = false
 processingParams.dataToTransmit = ''
 
---processingParams.commandList = {} --TODO
 processingParams.forwardEvents = {}
 
 --- Function to notify latest log messages, e.g. to show on UI
@@ -51,7 +50,6 @@ local function sendLog()
   for i=1, #log do
     tempLog = tempLog .. tostring(log[i]) .. '\n'
   end
-  print(tostring(processingParams.activeInUI))
   if processingParams.activeInUI then
     Script.notifyEvent("MultiUDPSocket_OnNewValueToForward" .. multiUDPSocketInstanceNumberString, 'MultiUDPSocket_OnNewLog', tostring(tempLog))
   end
@@ -104,24 +102,6 @@ local function handleOnReceive(data, ipAddress, port)
 
   sendLog()
 
-  --TODO
-  --[[
-  -- Check if cmd includes parameters seperated by a ','
-  local _, pos = string.find(data, ',')
-
-  if pos then
-    -- Check for command with parameter attached
-    local cmd = string.sub(data, 1, pos-1)
-    if processingParams.commandList[cmd] then
-      Script.notifyEvent("MultiUDPSocket_" .. processingParams.commandList[cmd], string.sub(data, pos + 1))
-    end
-  else
-    -- Check for command without parameter
-    if processingParams.commandList[data] then
-      Script.notifyEvent("MultiUDPSocket_" .. processingParams.commandList[data])
-    end
-  end
-  ]]
 end
 
 local function receive()
@@ -153,9 +133,6 @@ local function updateSetup()
     processingParams.currentConnectionStatus = false
     Script.notifyEvent("MultiUDPSocket_OnNewValueUpdate" .. multiUDPSocketInstanceNumberString, multiUDPSocketInstanceNumber, 'currentBindStatus', false)
   end
-
-  --sendLog()
-
 end
 
 --- Function to handle updates of processing parameters from Controller
@@ -201,31 +178,12 @@ local function handleOnNewProcessingParameter(multiUDPSocketNo, parameter, value
       local suc = Script.deregister(value, tempHandleTransmitData)
       _G.logger:fine(nameOfModule .. ": Deleted event = " .. tostring(value) .. " on instance No. " .. multiUDPSocketInstanceNumberString)
       _G.logger:fine(nameOfModule .. ": Success to deregister of event = " .. tostring(suc) .. " on instance No. " .. multiUDPSocketInstanceNumberString)
---[[
-    elseif parameter == 'addTrigger' then
-      _G.logger:fine(nameOfModule .. ": Added Trigger/Event pair = " .. value .. '/' .. value2)
-      processingParams.commandList[value] = value2
 
-      local check = Script.isServedAsEvent("CSK_MultiUDPSocket." .. value2)
-      if not check then
-        Script.serveEvent("CSK_MultiUDPSocket." .. value2, "MultiUDPSocket_" .. value2, 'string:?')
-      end
-
-    elseif parameter == 'removeTrigger' then
-      _G.logger:fine(nameOfModule .. ": Deleted trigger = " .. tostring(value) .. " on instance No. " .. multiUDPSocketInstanceNumberString)
-      processingParams.commandList[value] = nil
-]]
     elseif parameter == 'clearAll' then
       for forwardEvent in pairs(processingParams.forwardEvents) do
         processingParams.forwardEvents[forwardEvent] = nil
         Script.deregister(forwardEvent, tempHandleTransmitData)
       end
-
-      --[[
-      for trigger, event in pairs(processingParams.commandList) do
-        processingParams.commandList[trigger] = nil
-      end
-      ]]
 
     else
       processingParams[parameter] = value

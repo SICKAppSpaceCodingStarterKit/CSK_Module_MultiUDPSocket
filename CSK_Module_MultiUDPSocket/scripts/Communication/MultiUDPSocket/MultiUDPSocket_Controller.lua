@@ -116,7 +116,6 @@ end
 ---@param eventname string Eventname to use to forward value
 ---@param value auto Value to forward
 local function handleOnNewValueToForward(eventname, value)
-  print(eventname)
   Script.notifyEvent(eventname, value)
 end
 
@@ -206,7 +205,7 @@ local function handleOnExpiredTmrMultiUDPSocket()
 
     Script.notifyEvent("MultiUDPSocket_OnNewDataToTransmit", multiUDPSocket_Instances[selectedInstance].dataToTransmit)
     Script.notifyEvent("MultiUDPSocket_OnNewStatusPackFormat", multiUDPSocket_Instances[selectedInstance].parameters.packFormat)
-    --Script.notifyEvent("MultiUDPSocket_OnNewLog", multiUDPSocket_Instances[selectedInstance].parameters.ip)
+
     Script.notifyEvent("MultiUDPSocket_OnNewEventToForwardList", multiUDPSocket_Instances[selectedInstance].helperFuncs.createSpecificJsonList('eventToForward', multiUDPSocket_Instances[selectedInstance].parameters.forwardEvents))
     Script.notifyEvent("MultiUDPSocket_OnNewEventToForward", '')
     eventToForward = ''
@@ -445,9 +444,11 @@ Script.serveFunction('CSK_MultiUDPSocket.getStatusModuleActive', getStatusModule
 
 local function clearFlowConfigRelevantConfiguration()
   for i = 1, #multiUDPSocket_Instances do
-    multiUDPSocket_Instances[i].parameters.registeredEvent = ''
-    Script.notifyEvent('MultiUDPSocket_OnNewImageProcessingParameter', i, 'deregisterFromEvent', '')
-    Script.notifyEvent('MultiUDPSocket_OnNewStatusRegisteredEvent', '')
+    if multiUDPSocket_Instances[i].parameters.flowConfigPriority == true then
+      for key, value in pairs(multiUDPSocket_Instances[selectedInstance].parameters.forwardEvents) do
+        deleteEventToForward(value)
+      end
+    end
   end
 end
 Script.serveFunction('CSK_MultiUDPSocket.clearFlowConfigRelevantConfiguration', clearFlowConfigRelevantConfiguration)
@@ -497,6 +498,9 @@ local function loadParameters()
     if data then
       _G.logger:info(nameOfModule .. ": Loaded parameters for multiUDPSocketObject " .. tostring(selectedInstance) .. " from PersistentData module.")
       multiUDPSocket_Instances[selectedInstance].parameters = helperFuncs.convertContainer2Table(data)
+
+      multiUDPSocket_Instances[selectedInstance].parameters = helperFuncs.checkParameters(multiUDPSocket_Instances[selectedInstance].parameters, helperFuncs.defaultParameters.getParameters())
+
       updateProcessingParameters()
 
       tmrMultiUDPSocket:start()
@@ -583,9 +587,9 @@ local function resetModule()
     clearFlowConfigRelevantConfiguration()
 
     for i = 1, #multiUDPSocket_Instances do
-      multiUDPSocket_Instances[i].parameters.active = false
-      multiUDPSocket_Instances[i].status = 'PORT_NOT_ACTIVE'
-      Script.notifyEvent('MultiUDPSocket_OnNewProcessingParameter', i, 'active', false)
+      multiUDPSocket_Instances[i].parameters.bindStatus = false
+      multiUDPSocket_Instances[i].currentBindStatus = 'PORT_NOT_ACTIVE'
+      Script.notifyEvent('MultiUDPSocket_OnNewProcessingParameter', i, 'disconnect', false)
     end
     pageCalled()
   end
