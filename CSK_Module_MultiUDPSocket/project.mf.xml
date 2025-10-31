@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest>
+    <application name="CSK_Module_MultiUDPSocket">
+        <crown name="CSK_Module_MultiUDPSocket">
+            <desc>Auto generated Crown (not needed)</desc>
+        </crown>
+        <crown name="CSK_MultiUDPSocket">
+            <trait>released</trait>
+            <desc>Module to provide UDP socket functionality for multiple instances. Other modules can access its features / settings. +
+This module provides a UI for all relevant features. +
+{empty} + 
+Typically the features of this module are used like this (check also main script of this module): +
+{empty} + 
+**1) Setup the UDP socket configuration** +
+- Select instance via 'setSelectedInstance'. +
+- Set interface via 'setInterface'. +
+- Set IP address of UDP data receiver via 'setIP'. +
+- Set port via 'setPort'. +
+- Connect to server via 'setConnectionStatus'. +
+{empty} + 
+**2) Forward content via UDP socket, also by other modules** +
+To send content via UDP, there are different possibilities. +
+You can make use of 'transmitData[NUM]' to directly send the content with this function (NUM = instnace to use). +
+{empty} + 
+Additionally it is possible to configure the module to listen / wait for specific events of other modules/apps and to forward their content via UDP. +
+This can be used e.g. to listen to 'OtherModule.OnNewResult'-events and to forward the results via UDP (data will be converted to data type 'string'). +
+To do so make use of 'addEventToForward' (via script) or 'addEventToForwardViaUI' (event needs to be preset via 'setEventToForward'). +
+{empty} + </desc>
+            <serves>
+                <event name="OnNewStatusLoadParameterOnReboot">
+                    <desc>Notify status if parameters should be loaded on app-/device- boot up</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnPersistentDataModuleAvailable">
+                    <desc>Notify status if features of PersistendData CSK module  are available</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewInstanceList">
+                    <desc>Event to provide list of created instances</desc>
+                    <param desc="List of created instances" multiplicity="1" name="list" type="string"/>
+                </event>
+                <event name="OnNewProcessingParameter">
+                    <desc>Event to share processing parameters to the instances.</desc>
+                    <param desc="Number of the instance to receive the parameter" multiplicity="1" name="objectNo" type="int"/>
+                    <param desc="Name of the parameter" multiplicity="1" name="parameter" type="string"/>
+                    <param desc="Optional value of the parameter." multiplicity="[?*]" name="value" type="auto"/>
+                    <param desc="Optional parameter." multiplicity="[?*]" name="value2" type="int"/>
+                </event>
+                <event name="OnNewSelectedInstance">
+                    <desc>Notify if new instance is selected</desc>
+                    <param desc="Selected instance" multiplicity="1" name="selectedObject" type="int"/>
+                </event>
+                <event name="OnDataLoadedOnReboot">
+                    <desc>Event to call if module tried to load parameters and should be ready.</desc>
+                </event>
+                <event name="OnNewParameterName">
+                    <desc>Notify name of persistent data parameter</desc>
+                    <param desc="Parameter name" multiplicity="1" name="name" type="string"/>
+                </event>
+                <event name="OnUserLevelOperatorActive">
+                    <desc>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnUserLevelMaintenanceActive">
+                    <desc>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnUserLevelServiceActive">
+                    <desc>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnUserLevelAdminActive">
+                    <desc>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewValueUpdateNUM">
+                    <desc>Example of dynamically created event to sync paramters between instance threads and Controller part of app. +
+NUM will be replaced by the number of instance (e.g. "OnNewResult1") +</desc>
+                    <param desc="Instance new value is coming from." multiplicity="1" name="instance" type="int"/>
+                    <param desc="Name of the paramter to update/sync" multiplicity="1" name="parameter" type="string"/>
+                    <param desc="Value to update" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Optionally if internal parameter should be used for internal objects." multiplicity="?" name="selectedObject" type="int"/>
+                </event>
+                <event name="OnNewValueToForwardNUM">
+                    <desc>Example of dynamically created event to forward data from instance thread to Controler app, e.g. to forward values to UI. +
+NUM will be replaced by the number of instance (e.g. "OnNewResult1")+</desc>
+                    <param desc="Eventname to use to forward value." multiplicity="1" name="eventname" type="string"/>
+                    <param desc="Value to forward." multiplicity="1" name="value" type="auto"/>
+                </event>
+                <event name="OnNewStatusCSKStyle">
+                    <desc>Notify UI style to use for CSK modules.</desc>
+                    <param desc="UI style" multiplicity="1" name="theme" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleVersion">
+                    <desc>Notify version of module.</desc>
+                    <param desc="Version" multiplicity="1" name="version" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleIsActive">
+                    <desc>Notify if module can be used on device.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusFlowConfigPriority">
+                    <desc>Notify if FlowConfig should have priority for FlowConfig relevant configurations.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusPort">
+                    <desc>Notify port to bind UDP socket.</desc>
+                    <param desc="Port" multiplicity="1" name="port" type="int"/>
+                </event>
+                <event name="OnNewStatusInterface">
+                    <desc>Notify interface to use for UDP socket.</desc>
+                    <param desc="Interface" multiplicity="1" name="interface" type="string"/>
+                </event>
+                <event name="OnNewStatusIP">
+                    <desc>Notify IP to transmit data to via UDP socket.</desc>
+                    <param desc="IP" multiplicity="1" name="ip" type="string"/>
+                </event>
+                <event name="OnNewStatusCurrentConnection">
+                    <desc>Notify if UDP socket is currently connected.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusConnectionStatus">
+                    <desc>Notify if UDP socket should be connected.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewDataNUM">
+                    <desc>Example of dynamically created event to provide received data of instance. +
+NUM will be replaced by the number of instance (e.g. "OnNewData1"). +
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
+                    <param desc="Data" multiplicity="1" name="data" type="binary"/>
+                </event>
+                <event name="OnNewInterfaceList">
+                    <desc>Notify list of available interfaces for UDP connection.</desc>
+                    <param desc="List of interfaces." multiplicity="1" name="list" type="string"/>
+                </event>
+                <event name="OnNewDataToTransmit">
+                    <desc>Notify data to send.</desc>
+                    <param desc="Data to transmit." multiplicity="1" name="data" type="string"/>
+                </event>
+                <event name="OnNewLog">
+                    <desc>Notfiy latest log.</desc>
+                    <param desc="Log entries." multiplicity="1" name="log" type="string"/>
+                </event>
+                <event name="OnNewEventToForwardList">
+                    <desc>Notify list of events to register to and to forward its content to UDP socket.</desc>
+                    <param desc="List" multiplicity="1" name="list" type="string"/>
+                </event>
+                <event name="OnNewEventToForward">
+                    <desc>Notify event to register to and to forward its content to UDP socket.</desc>
+                    <param desc="Name of event" multiplicity="1" name="eventName" type="string"/>
+                </event>
+                <event name="OnNewStatusQueueSizeReceive">
+                    <desc>Notify queue size of receive function.</desc>
+                    <param desc="Size" multiplicity="1" name="size" type="int"/>
+                </event>
+                <event name="OnNewStatusDiscardIfFull">
+                    <desc>Notify status if oldest frame in receive queue should be dropped (TRUE) or newest one (FALSE) if queue is full.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusWarnOverruns">
+                    <desc>Notify status to show warnings on overruns of receive function.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusReceiveTimeout">
+                    <desc>Notify timeout in ms to wait for received data. 0 means directly return.</desc>
+                    <param desc="Timeout in ms." multiplicity="1" name="timeout" type="int"/>
+                </event>
+                <event name="OnNewStatusPackFormat">
+                    <desc>Notify format to pack data to send binary data.</desc>
+                    <param desc="Format" multiplicity="1" name="format" type="string"/>
+                </event>
+                <function name="setParameterName">
+                    <desc>Function to set the name of the parameters if saved/loaded via the "PersistentData" CSK-module</desc>
+                    <param desc="Name of the parameter" multiplicity="1" name="name" type="string"/>
+                </function>
+                <function name="setLoadOnReboot">
+                    <desc>Configure if this module should load its saved parameters at app- / device- boot up</desc>
+                    <param desc="Set status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="pageCalled">
+                    <desc>Function to register "On Resume" of the ModuleName_Model UI ( (only helper function)</desc>
+                    <return desc="Empty string" multiplicity="1" name="empty" type="string"/>
+                </function>
+                <function name="setSelectedInstance">
+                    <desc>Select one of the multiple instances</desc>
+                    <param desc="Instance to select" multiplicity="1" name="instance" type="int"/>
+                </function>
+                <function name="getInstancesAmount">
+                    <desc>Get the amount of created instances of this module</desc>
+                    <return desc="Amount of created instances." multiplicity="1" name="amount" type="int"/>
+                </function>
+                <function name="addInstance">
+                    <desc>Function to add an additional instance.</desc>
+                </function>
+                <function name="resetInstances">
+                    <desc>Function to reset instances to one single instance.
+IMPORTANT: As instances start their own threads, the module needs to be restarted if new instances are needed... (see AppEngine docu for "Script.startScript")</desc>
+                </function>
+                <function name="getStatusModuleActive">
+                    <desc>Function to get status if module is active.</desc>
+                    <return desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="clearFlowConfigRelevantConfiguration">
+                    <desc>Function to clear FlowConfig relevant configurations.</desc>
+                </function>
+                <function name="getParameters">
+                    <trait>released</trait>
+                    <desc>Function to get all parameters of the client in JSON format.</desc>
+                    <param desc="Number of instance to get parameters from." multiplicity="1" name="instanceNo" type="int"/>
+                    <return desc="JSON string with all parameters." multiplicity="1" name="jsonParameters" type="string"/>
+                </function>
+                <function name="resetModule">
+                    <desc>Function to reset main configuration of module.</desc>
+                </function>
+                <function name="loadParameters">
+                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <return desc="Success to load parameters." multiplicity="1" name="success" type="bool"/>
+                </function>
+                <function name="sendParameters">
+                    <desc>Send parameters to CSK_PersistentData module if possible to save them.</desc>
+                    <param desc="[Optional] Set to TRUE if the data should NOT be saved immediately after sending." multiplicity="?" name="noDataSave" type="bool"/>
+                </function>
+                <function name="setFlowConfigPriority">
+                    <desc>Function to configure if FlowConfig should have priority for FlowConfig relevant configuration.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="transmitDataNUM">
+                    <desc>Example of dynamically served function to transmit data on specific instance. +
+NUM will be replaced by the number of instance (e.g. "transmitData1"). +
+INFO: Other modules can check via "Script.isServedAsFunction" if function of sepecific instance exists. +
+Needs then to be called via "Script.callFunction".</desc>
+                    <param desc="Data to transmit." multiplicity="1" name="data" type="binary"/>
+                    <return desc="Number of bytes transmitted ('0' if error)." multiplicity="1" name="numberOfBytesTransmitted" type="int"/>
+                </function>
+                <function name="setPort">
+                    <desc>Function to set port to bind UDP socket.</desc>
+                    <param desc="Port" multiplicity="1" name="port" type="int"/>
+                </function>
+                <function name="setIP">
+                    <desc>Function to set IP to transmit data via UDP socket.</desc>
+                    <param desc="IP" multiplicity="1" name="ip" type="string"/>
+                </function>
+                <function name="setInterface">
+                    <desc>Function to set interface to use for UDP socket communicaiton.</desc>
+                    <param desc="Interface" multiplicity="1" name="interface" type="string"/>
+                </function>
+                <function name="setConnectionStatus">
+                    <desc>Function to set status UDP socket bind status.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="selectEventToForwardViaUI">
+                    <desc>Select an event to forward the content of its first parameter via UDP socket via UI.</desc>
+                    <param desc="Selected event." multiplicity="1" name="selection" type="string"/>
+                </function>
+                <function name="addEventToForward">
+                    <desc>Add an event to register to and to forward the content of its first parameter (as string) to UDP socket.</desc>
+                    <param desc="Name of event to register to." multiplicity="1" name="event" type="string"/>
+                </function>
+                <function name="addEventToForwardViaUI">
+                    <desc>Add event to register to and forward content (first event parameter as string) to UDP socket via UI (event needs to be prefilled on UI / via "setEventToForward").</desc>
+                </function>
+                <function name="deleteEventToForward">
+                    <desc>Remove event to forward content.</desc>
+                    <param desc="Eventname" multiplicity="1" name="event" type="string"/>
+                </function>
+                <function name="deleteEventToForwardViaUI">
+                    <desc>Remove event preselected via UI.</desc>
+                </function>
+                <function name="setEventToForward">
+                    <desc>Preset event to register to and forward content to UDP socket via UI.</desc>
+                    <param desc="Event to register to." multiplicity="1" name="value" type="string"/>
+                </function>
+                <function name="transmitData">
+                    <desc>Function to transmit data via UDP socket.</desc>
+                    <param desc="Data" multiplicity="1" name="data" type="binary"/>
+                </function>
+                <function name="transmitDataViaUI">
+                    <desc>Function to transmit preset data in UI via UDP socket.</desc>
+                </function>
+                <function name="setDataToTransmit">
+                    <desc>Function to preset data to transmit via UDP sicket.</desc>
+                    <param desc="Data" multiplicity="1" name="data" type="string"/>
+                </function>
+                <function name="setReceiveTimeout">
+                    <desc>Function to set timeout for receive function.</desc>
+                    <param desc="Time in ms." multiplicity="1" name="time" type="int"/>
+                </function>
+                <function name="setReceiveQueueSize">
+                    <desc>Function to set size of queue for receive function.</desc>
+                    <param desc="Size" multiplicity="1" name="size" type="int"/>
+                </function>
+                <function name="setReceiveDiscardIfFull">
+                    <desc>Function to set status what frame to drop in case the receive queue is full.</desc>
+                    <param desc="Status (TRUE to drop oldest frame, FALSE to drop newest frame)." multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="setReceiveWarnOverruns">
+                    <desc>Function to set if warnings should be raised if receive function overruns.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="receiveViaUI">
+                    <desc>Function to trigger receive function of current selected instance.</desc>
+                </function>
+                <function name="setPackFormat">
+                    <desc>Function to set format to pack data as binary data to transmit.</desc>
+                    <param desc="Format string for LUA string.pack function." multiplicity="1" name="format" type="string"/>
+                </function>
+            </serves>
+        </crown>
+        <crown name="MultiUDPSocket_FC">
+            <trait>released</trait>
+            <desc>Crown to provide CSK_FlowConfig relevant features.</desc>
+            <enum name="ResultType" trait="released" type="string">
+                <desc>Types of results to provide.</desc>
+                <item desc="TotalResult + optional sub results (see 'setResultOutput') concatenated as a string." name="TOTAL_SUBRESULTS">TOTAL_SUBRESULTS</item>
+                <item desc="TotalResult as boolean." name="TOTAL_RESULT">TOTAL_RESULT</item>
+            </enum>
+            <serves/>
+            <crown name="Transmit">
+                <desc>Set source of incoming data to forward via UDP.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param constraint="1-99" desc="Numeric identifier of processing instance." multiplicity="1" name="Instance" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="transmit">
+                        <include>data-flow</include>
+                        <desc>Set source of incoming data to forward via UDP.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Source1 of data to forward via websocket.&#10;&#10;Parameter:&#10;1: Data content (BINARY)" multiplicity="?" name="source1" type="string"/>
+                        <param desc="Source2 of data to forward via websocket.&#10;&#10;Parameter:&#10;1: Data content (BINARY)" multiplicity="?" name="source2" type="string"/>
+                        <param desc="Source3 of data to forward via websocket.&#10;&#10;Parameter:&#10;1: Data content (BINARY)" multiplicity="?" name="source3" type="string"/>
+                        <param desc="Source4 of data to forward via websocket.&#10;&#10;Parameter:&#10;1: Data content (BINARY)" multiplicity="?" name="source4" type="string"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="OnReceive">
+                <trait>released</trait>
+                <desc>Provide received UDP data.</desc>
+                <serves>
+                    <event name="OnNewData">
+                        <include>data-flow</include>
+                        <desc>Provide received UDP data.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="'CSK_MultiUDPSocket.OnNewData[InstanceNUM]'&#10;&#10;Parameter:&#10;1: Data content (BINARY)" multiplicity="1" name="OnNewData" ref="MultiColorSelection_FC.ResultType" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param constraint="1-99" desc="Numeric identifier of processing instance." multiplicity="1" name="Instance" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+        </crown>
+        <meta key="author">SICK AG</meta>
+        <meta key="version">1.0.0</meta>
+        <meta key="priority">low</meta>
+        <meta key="copy-protected">false</meta>
+        <meta key="read-protected">false</meta>
+        <meta key="crown2-flow-engine">false</meta>
+        <meta key="LuaLoadAllEngineAPI">false</meta>
+        <entry default="CSK_Module_MultiUDPSocket.lua" path="scripts"/>
+    </application>
+</manifest>

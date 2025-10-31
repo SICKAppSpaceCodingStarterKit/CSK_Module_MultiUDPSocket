@@ -1,0 +1,665 @@
+<layout-row id="RowLayout1" class="myCustomBackground_CSK_Module_MultiUDPSocket">
+    <layout-column id="ColumnLayout7" class="myCustomFrameNoColor_CSK_Module_MultiUDPSocket"
+        style="align-items: stretch">
+        <layout-row id="RowLayout5" class="myCustomSpacerVert20_CSK_Module_MultiUDPSocket"
+            style="flex-grow: 0; flex-shrink: 0">
+        </layout-row>
+        <layout-row id="RowLayout22">
+            <layout-column id="ColumnLayout23" style="align-items: stretch">
+                <layout-row id="RowLayout01" style="align-items: baseline">
+                    <h1 id="Heading_Title" class="myCustomLabel_CSK_Module_MultiUDPSocket">
+                        UDP Socket
+                    </h1>
+                    <davinci-value-display id="VD_Version">
+                        <crown-on property="value" crown-event="CSK_MultiUDPSocket/OnNewStatusModuleVersion">
+                        </crown-on>
+                    </davinci-value-display>
+                </layout-row>
+            </layout-column>
+        </layout-row>
+        <stacked-view id="SV_FeatureSupport">
+            <stacked-pane id="SP_Supported" value="true">
+                <layout-row id="RowLayout23">
+                    <layout-column id="ColumnLayout24" style="align-items: stretch">
+                        <layout-row id="RowLayout24" class="myCustomMarginFirstRow_CSK_Module_MultiUDPSocket">
+                            <layout-column id="ColumnLayout25"
+                                class="myCustomMarginInline1Rem_CSK_Module_MultiUDPSocket" style="align-items: stretch">
+                                <layout-row id="RowLayout75">
+                                    <layout-column id="ColumnLayout75" style="align-items: stretch">
+                                    </layout-column>
+                                    <layout-column id="ColumnLayout76" style="align-items: stretch">
+                                        <layout-row id="RowLayout112"
+                                            style="flex-grow: 0; flex-shrink: 0; align-items: center">
+                                            <layout-column id="ColumnLayout223" style="align-items: stretch">
+                                                <davinci-value-display id="VD_SelectedInstance" value="Instance">
+                                                </davinci-value-display>
+                                            </layout-column>
+                                            <layout-column id="ColumnLayout56" style="align-items: stretch">
+                                                <davinci-drop-down id="DD_SelectInstance">
+                                                    <crown-binding event="change"
+                                                        name="CSK_MultiUDPSocket/setSelectedInstance"
+                                                        path="param/args/instance" auto-commit
+                                                        converter="function(value) {return Number(value);}">
+                                                    </crown-binding>
+                                                    <crown-edpws-binding property="value"
+                                                        name="CSK_MultiUDPSocket/OnNewSelectedInstance" update-on-resume
+                                                        converter="function(value) {return value.toString();}">
+                                                    </crown-edpws-binding>
+                                                    <crown-edpws-binding property="data"
+                                                        name="CSK_MultiUDPSocket/OnNewInstanceList" update-on-resume
+                                                        converter="convertToList">
+                                                    </crown-edpws-binding>
+                                                </davinci-drop-down>
+                                            </layout-column>
+                                            <layout-column id="ColumnLayout47" style="align-items: stretch">
+                                                <layout-row id="RowLayout65"
+                                                    class="myCustomMarginTop7PX_CSK_Module_MultiUDPSocket"
+                                                    style="align-items: center; justify-content: center">
+                                                    <davinci-button id="Button_AddInstance"
+                                                        class="myCustomButton_CSK_Module_MultiUDPSocket" type="outline"
+                                                        title="Add instance">
+                                                        <davinci-icon icon="content/add">
+                                                        </davinci-icon>
+                                                        <span></span>
+                                                        <crown-binding event="submit"
+                                                            name="CSK_MultiUDPSocket/addInstance" auto-commit>
+                                                        </crown-binding>
+                                                    </davinci-button>
+                                                    <davinci-button id="Button_ResetInstances"
+                                                        class="myCustomButton_CSK_Module_MultiUDPSocket" type="outline"
+                                                        title="Reset insances to single instance. Reload app after reseting.">
+                                                        <davinci-icon icon="action/delete">
+                                                        </davinci-icon>
+                                                        <span></span>
+                                                        <crown-binding event="submit"
+                                                            name="CSK_MultiUDPSocket/resetInstances" auto-commit>
+                                                        </crown-binding>
+                                                    </davinci-button>
+                                                </layout-row>
+                                            </layout-column>
+                                        </layout-row>
+                                    </layout-column>
+                                </layout-row>
+                            </layout-column>
+                            <layout-column id="ColumnLayout26" class="myCustomBorderLeft_CSK_Module_MultiUDPSocket"
+                                style="align-items: stretch">
+                                <layout-row id="RowLayout46" style="align-items: baseline">
+                                    <layout-column id="ColumnLayout81" style="align-items: stretch">
+                                        <layout-row id="RowLayout245" style="align-items: center">
+                                            <layout-column id="ColumnLayout57" style="align-items: stretch">
+                                                <davinci-value-display id="VD_PersistentData" value="Persistent Data">
+                                                </davinci-value-display>
+                                            </layout-column>
+                                            <layout-column id="ColumnLayout73"
+                                                style="align-items: stretch; flex-grow: 2">
+                                                <davinci-text-field id="TF_ParameterName" type="text"
+                                                    title="Name of the parameters within the CSK_PersistentData module to be uses for this module.">
+                                                    <crown-edpws-binding property="value"
+                                                        name="CSK_MultiUDPSocket/OnNewParameterName" update-on-resume>
+                                                    </crown-edpws-binding>
+                                                    <crown-binding event="change"
+                                                        name="CSK_MultiUDPSocket/setParameterName"
+                                                        path="param/args/name" auto-commit>
+                                                    </crown-binding>
+                                                    <crown-edpws-binding property="disabled"
+                                                        name="CSK_MultiUDPSocket/OnPersistentDataModuleAvailable"
+                                                        update-on-resume converter="function(value) {return !value;}">
+                                                    </crown-edpws-binding>
+                                                </davinci-text-field>
+                                            </layout-column>
+                                            <layout-column id="Column_PersistentData" style="align-items: stretch">
+                                                <layout-row id="RowLayout515">
+                                                    <layout-column id="ColumnLayout762" style="align-items: stretch">
+                                                        <layout-row id="RowLayout123"
+                                                            class="myCustomMarginTop7PX_CSK_Module_MultiUDPSocket"
+                                                            style="justify-content: center; align-items: center">
+                                                            <davinci-button id="B_LoadConfig"
+                                                                class="myCustomButton_CSK_Module_MultiUDPSocket"
+                                                                type="outline"
+                                                                title="Load configured parameters from CSK_PersistentData module.">
+                                                                <davinci-icon icon="action/history">
+                                                                </davinci-icon>
+                                                                <span></span>
+                                                                <crown-binding event="submit"
+                                                                    name="CSK_MultiUDPSocket/loadParameters"
+                                                                    auto-commit>
+                                                                </crown-binding>
+                                                                <crown-edpws-binding property="disabled"
+                                                                    name="CSK_MultiUDPSocket/OnPersistentDataModuleAvailable"
+                                                                    update-on-resume
+                                                                    converter="function(value) {return !value;}">
+                                                                </crown-edpws-binding>
+                                                            </davinci-button>
+                                                            <davinci-button id="B_SaveConfig"
+                                                                class="myCustomButton_CSK_Module_MultiUDPSocket"
+                                                                type="outline"
+                                                                title="Save current configured parameters of this module within CSK_PersistentData module.">
+                                                                <davinci-icon icon="content/save">
+                                                                </davinci-icon>
+                                                                <span></span>
+                                                                <crown-binding event="submit"
+                                                                    name="CSK_MultiUDPSocket/sendParameters"
+                                                                    auto-commit>
+                                                                </crown-binding>
+                                                                <crown-edpws-binding property="disabled"
+                                                                    name="CSK_MultiUDPSocket/OnPersistentDataModuleAvailable"
+                                                                    update-on-resume
+                                                                    converter="function(value) {return !value;}">
+                                                                </crown-edpws-binding>
+                                                            </davinci-button>
+                                                        </layout-row>
+                                                    </layout-column>
+                                                </layout-row>
+                                            </layout-column>
+                                        </layout-row>
+                                        <layout-row id="RowLayout57" style="align-items: center">
+                                            <layout-column id="ColumnLayout575" style="align-items: stretch">
+                                                <davinci-collapse id="Collapse_PersistentData"
+                                                    class="myCustomPersistentDataMargin_CSK_Module_MultiUDPSocket"
+                                                    collapsed-title="..." expanded-title="...">
+                                                    <layout-row id="RowLayout45"
+                                                        class="myCustomPersistentDataMarginBack_CSK_Module_MultiUDPSocket"
+                                                        style="align-items: center">
+                                                        <layout-column id="ColumnLayout6123"
+                                                            style="align-items: stretch">
+                                                        </layout-column>
+                                                        <layout-column id="ColumnLayout72"
+                                                            style="align-items: stretch; flex-grow: 2">
+                                                            <layout-row id="RowLayout4">
+                                                                <layout-column id="ColumnLayout11"
+                                                                    style="align-items: stretch">
+                                                                    <layout-row id="RowLayout2321"
+                                                                        style="align-items: center">
+                                                                        <davinci-value-display id="VD_LoadConfig"
+                                                                            value="Load on reboot:"
+                                                                            title="Load configured parameters from CSK_PersistentData on app start.">
+                                                                        </davinci-value-display>
+                                                                        <davinci-checkbox id="CB_LoadConfig"
+                                                                            title="Load configured parameters from CSK_PersistentData on app start.">
+                                                                            <span></span>
+                                                                            <crown-edpws-binding property="checked"
+                                                                                name="CSK_MultiUDPSocket/OnNewStatusLoadParameterOnReboot"
+                                                                                update-on-resume>
+                                                                            </crown-edpws-binding>
+                                                                            <crown-edpws-binding property="disabled"
+                                                                                name="CSK_MultiUDPSocket/OnPersistentDataModuleAvailable"
+                                                                                update-on-resume
+                                                                                converter="function(value) {return !value;}">
+                                                                            </crown-edpws-binding>
+                                                                            <crown-binding event="change"
+                                                                                name="CSK_MultiUDPSocket/setLoadOnReboot"
+                                                                                path="param/args/status" auto-commit>
+                                                                            </crown-binding>
+                                                                        </davinci-checkbox>
+                                                                    </layout-row>
+                                                                </layout-column>
+                                                                <layout-column id="ColumnLayout77"
+                                                                    style="align-items: stretch">
+                                                                    <layout-row id="RowLayout5612"
+                                                                        style="align-items: center; justify-content: flex-end">
+                                                                        <davinci-value-display id="VD_FLowConfigPriox"
+                                                                            value="Flow config priority:"
+                                                                            title="FlowConfig priority for FlowConfig relevant configurations.">
+                                                                        </davinci-value-display>
+                                                                        <davinci-checkbox id="CB_FlowConfigPrio"
+                                                                            title="FlowConfig priority for FlowConfig relevant configurations.">
+                                                                            <span></span>
+                                                                            <crown-edpws-binding property="checked"
+                                                                                name="CSK_MultiUDPSocket/OnNewStatusFlowConfigPriority"
+                                                                                update-on-resume>
+                                                                            </crown-edpws-binding>
+                                                                            <crown-binding event="change"
+                                                                                name="CSK_MultiUDPSocket/setFlowConfigPriority"
+                                                                                path="param/args/status" auto-commit>
+                                                                            </crown-binding>
+                                                                        </davinci-checkbox>
+                                                                    </layout-row>
+                                                                </layout-column>
+                                                            </layout-row>
+                                                        </layout-column>
+                                                        <layout-column id="ColumnLayout79" style="align-items: stretch">
+                                                        </layout-column>
+                                                    </layout-row>
+                                                </davinci-collapse>
+                                            </layout-column>
+                                        </layout-row>
+                                    </layout-column>
+                                </layout-row>
+                            </layout-column>
+                        </layout-row>
+                        <layout-row id="RowLayout60" class="myCustomSpacerVert10_CSK_Module_MultiUDPSocket">
+                        </layout-row>
+                        <layout-row id="RowLayout47" class="myCustomBorderBottom_CSK_Module_MultiUDPSocket"
+                            style="flex-grow: 0; flex-shrink: 0">
+                        </layout-row>
+                        <layout-row id="RowLayout61" class="myCustomSpacerVert10_CSK_Module_MultiUDPSocket"
+                            style="flex-grow: 0; flex-shrink: 0">
+                        </layout-row>
+                        <layout-row id="RowLayout18">
+                            <layout-column id="ColumnLayout21"
+                                class="myCustomMarginInline1Rem_CSK_Module_MultiUDPSocket" style="align-items: stretch">
+                                <layout-row id="RowLayout20">
+                                    <layout-column id="ColumnLayout1" style="align-items: stretch">
+                                        <layout-row id="RowLayout55" style="align-items: center">
+                                            <davinci-value-display id="VD_ConnectionStatus" value="Connection status:">
+                                            </davinci-value-display>
+                                            <davinci-status-indicator id="SI_ConnectionStatus">
+                                                <span></span>
+                                                <crown-edpws-binding property="status"
+                                                    name="CSK_MultiUDPSocket/OnNewStatusCurrentConnection"
+                                                    update-on-resume>
+                                                </crown-edpws-binding>
+                                            </davinci-status-indicator>
+                                        </layout-row>
+                                    </layout-column>
+                                    <layout-column id="ColumnLayout4" style="align-items: stretch">
+                                        <layout-row id="RowLayout145"
+                                            style="justify-content: flex-end; align-items: center">
+                                            <davinci-value-display id="VD_ActivateUDP" value="Activate Client">
+                                            </davinci-value-display>
+                                            <davinci-toggle-switch id="TS_Activate">
+                                                <crown-edpws-binding property="checked"
+                                                    name="CSK_MultiUDPSocket/OnNewStatusConnectionStatus"
+                                                    update-on-resume>
+                                                </crown-edpws-binding>
+                                                <crown-binding event="change"
+                                                    name="CSK_MultiUDPSocket/setConnectionStatus"
+                                                    path="param/args/status" auto-commit>
+                                                </crown-binding>
+                                            </davinci-toggle-switch>
+                                        </layout-row>
+                                    </layout-column>
+                                </layout-row>
+                                <layout-row id="RowLayout82" style="justify-content: space-between">
+                                    <layout-column id="ColumnLayout112" style="align-items: stretch; flex-grow: 9">
+                                        <davinci-text-field id="TF_DataToTransmit" type="text" label="Data">
+                                            <crown-edpws-binding property="value"
+                                                name="CSK_MultiUDPSocket/OnNewDataToTransmit" update-on-resume>
+                                            </crown-edpws-binding>
+                                            <crown-binding event="change" name="CSK_MultiUDPSocket/setDataToTransmit"
+                                                path="param/args/data" auto-commit>
+                                            </crown-binding>
+                                        </davinci-text-field>
+                                    </layout-column>
+                                    <layout-column id="ColumnLayout30" style="align-items: stretch; flex-grow: 4">
+                                        <davinci-text-field id="TF_PackFormat" type="text" label="Pack format"
+                                            title="Format to pack data content to transmit binary data (used for internal LUA string.pack function). Leave empty if not needed.">
+                                            <crown-edpws-binding property="value"
+                                                name="CSK_MultiUDPSocket/OnNewStatusPackFormat" update-on-resume>
+                                            </crown-edpws-binding>
+                                            <crown-binding event="change" name="CSK_MultiUDPSocket/setPackFormat"
+                                                path="param/args/format" auto-commit>
+                                            </crown-binding>
+                                        </davinci-text-field>
+                                    </layout-column>
+                                    <layout-column id="ColumnLayout12" style="align-items: center">
+                                        <davinci-button id="B_Transmit" class="myCustomButton_CSK_Module_MultiUDPSocket"
+                                            type="outline" title="Transmit">
+                                            <davinci-icon icon="content/send">
+                                            </davinci-icon>
+                                            <span></span>
+                                            <crown-binding event="submit" name="CSK_MultiUDPSocket/transmitDataViaUI"
+                                                auto-commit>
+                                            </crown-binding>
+                                        </davinci-button>
+                                    </layout-column>
+                                    <layout-column id="ColumnLayout42" style="align-items: center">
+                                        <davinci-button id="Button_Receive"
+                                            class="myCustomButton_CSK_Module_MultiUDPSocket" type="outline"
+                                            title="Trigger receive function of UDP socket.">
+                                            <davinci-icon icon="navigation/refresh">
+                                            </davinci-icon>
+                                            <span></span>
+                                            <crown-binding event="submit" name="CSK_MultiUDPSocket/receiveViaUI"
+                                                auto-commit>
+                                            </crown-binding>
+                                        </davinci-button>
+                                    </layout-column>
+                                </layout-row>
+                                <davinci-text-area id="TA_MessageLog" label="Message Log:" style="height: 500px">
+                                    <crown-on property="value" crown-event="CSK_MultiUDPSocket/OnNewLog">
+                                    </crown-on>
+                                </davinci-text-area>
+                                <layout-row id="RowLayout2" class="myCustomSpacerVert10_CSK_Module_MultiUDPSocket">
+                                </layout-row>
+                            </layout-column>
+                            <layout-column id="ColumnLayout2" class="myCustomBorderLeft_CSK_Module_MultiUDPSocket"
+                                style="align-items: stretch">
+                                <stacked-view id="SV_UserRole">
+                                    <stacked-pane id="SP_LoginOK" value="true">
+                                        <davinci-tabs id="Tabs_SubSetup"
+                                            class="myCustomMarginLeft15PX_CSK_Module_MultiUDPSocket" type="modern"
+                                            style="align-self: stretch">
+                                            <davinci-tab id="Tab_Setup"
+                                                class="myCustomMarginLeft7PX_CSK_Module_MultiUDPSocket"
+                                                icon="action/settings" selected title="Configuration">
+                                                <layout-row id="RowLayout33">
+                                                    <layout-column id="ColumnLayout3"
+                                                        class="myCustomFrame_CSK_Module_MultiUDPSocket"
+                                                        style="align-items: stretch">
+                                                        <davinci-value-display id="VD_Configuration"
+                                                            class="myCustomFrameLabel_CSK_Module_MultiUDPSocket"
+                                                            label="Configuration" style="align-self: flex-start">
+                                                        </davinci-value-display>
+                                                        <layout-row id="RowLayout25">
+                                                            <layout-column id="ColumnLayout39"
+                                                                style="align-items: stretch">
+                                                                <davinci-value-display id="VD_IP" value="IP"
+                                                                    title="Set IP to transmit data via UDP socket.">
+                                                                </davinci-value-display>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout41"
+                                                                style="align-items: stretch">
+                                                                <davinci-value-display id="VD_Port" value="Port"
+                                                                    title="Set port to use.">
+                                                                </davinci-value-display>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout40"
+                                                                style="align-items: stretch">
+                                                                <davinci-value-display id="VD_Interface"
+                                                                    value="Interface" title="Interface to use.">
+                                                                </davinci-value-display>
+                                                            </layout-column>
+                                                        </layout-row>
+                                                        <layout-row id="RowLayout29"
+                                                            style="justify-content: space-between">
+                                                            <layout-column id="ColumnLayout19"
+                                                                style="align-items: stretch">
+                                                                <davinci-text-field id="TF_IP" type="text"
+                                                                    title="Set IP to transmit data via UDP socket.">
+                                                                    <crown-edpws-binding property="value"
+                                                                        name="CSK_MultiUDPSocket/OnNewStatusIP"
+                                                                        update-on-resume>
+                                                                    </crown-edpws-binding>
+                                                                    <crown-binding event="change"
+                                                                        name="CSK_MultiUDPSocket/setIP"
+                                                                        path="param/args/ip" auto-commit>
+                                                                    </crown-binding>
+                                                                </davinci-text-field>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout13"
+                                                                style="align-items: stretch">
+                                                                <davinci-numeric-field id="NF_Port" type="outline"
+                                                                    min="0" max="+Infinity" ticks="1"
+                                                                    group-separator="," decimal-separator="."
+                                                                    format-pattern="0" title="Set port to use.">
+                                                                    <crown-edpws-binding property="value"
+                                                                        name="CSK_MultiUDPSocket/OnNewStatusPort"
+                                                                        update-on-resume>
+                                                                    </crown-edpws-binding>
+                                                                    <crown-binding event="change"
+                                                                        name="CSK_MultiUDPSocket/setPort"
+                                                                        path="param/args/port" auto-commit>
+                                                                    </crown-binding>
+                                                                </davinci-numeric-field>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout16"
+                                                                style="align-items: stretch">
+                                                                <davinci-drop-down id="DD_Interface"
+                                                                    title="Interface to use.">
+                                                                    <crown-edpws-binding property="value"
+                                                                        name="CSK_MultiUDPSocket/OnNewStatusInterface"
+                                                                        update-on-resume>
+                                                                    </crown-edpws-binding>
+                                                                    <crown-edpws-binding property="data"
+                                                                        name="CSK_MultiUDPSocket/OnNewInterfaceList"
+                                                                        update-on-resume converter="convertToList">
+                                                                    </crown-edpws-binding>
+                                                                    <crown-binding event="change"
+                                                                        name="CSK_MultiUDPSocket/setInterface"
+                                                                        path="param/args/interface" auto-commit>
+                                                                    </crown-binding>
+                                                                </davinci-drop-down>
+                                                            </layout-column>
+                                                        </layout-row>
+                                                        <davinci-value-display id="VD_Receive"
+                                                            label="Receive function setup">
+                                                        </davinci-value-display>
+                                                        <layout-row id="RowLayout9">
+                                                            <layout-column id="ColumnLayout33"
+                                                                style="align-items: stretch">
+                                                                <davinci-value-display id="VD_LabelQueueSize"
+                                                                    value="Queue size"
+                                                                    title="Set size of queue for receive function.">
+                                                                </davinci-value-display>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout35"
+                                                                style="align-items: stretch">
+                                                                <davinci-value-display id="VD_ReceiveTimeout"
+                                                                    value="Receive timeout"
+                                                                    title="Set timeout for receive function in ms.">
+                                                                </davinci-value-display>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout34"
+                                                                style="align-items: stretch">
+                                                                <layout-row id="RowLayout26"
+                                                                    style="justify-content: space-between">
+                                                                    <layout-column id="ColumnLayout43"
+                                                                        style="align-items: stretch">
+                                                                        <davinci-value-display id="VD_WarnOverruns"
+                                                                            value="Warn overruns"
+                                                                            title="Set if warnings should be raised if receive function overruns.">
+                                                                        </davinci-value-display>
+                                                                    </layout-column>
+                                                                    <layout-column id="ColumnLayout44"
+                                                                        style="align-items: stretch">
+                                                                        <davinci-value-display
+                                                                            id="VD_Label_DiscardIfFull"
+                                                                            value="Discard if full"
+                                                                            title="Set status what frame to drop in case the receive queue is full.">
+                                                                        </davinci-value-display>
+                                                                    </layout-column>
+                                                                </layout-row>
+                                                            </layout-column>
+                                                        </layout-row>
+                                                        <layout-row id="RowLayout7" style="align-items: center">
+                                                            <layout-column id="ColumnLayout22"
+                                                                style="align-items: stretch">
+                                                                <davinci-numeric-field id="NF_QueueSize" type="outline"
+                                                                    min="0" max="10000" ticks="1" group-separator=","
+                                                                    decimal-separator="." format-pattern="0"
+                                                                    title="Set size of queue for receive function.">
+                                                                    <crown-binding event="change"
+                                                                        name="CSK_MultiUDPSocket/setReceiveQueueSize"
+                                                                        path="param/args/size" auto-commit>
+                                                                    </crown-binding>
+                                                                    <crown-edpws-binding property="value"
+                                                                        name="CSK_MultiUDPSocket/OnNewStatusQueueSizeReceive"
+                                                                        update-on-resume>
+                                                                    </crown-edpws-binding>
+                                                                </davinci-numeric-field>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout29"
+                                                                style="align-items: stretch">
+                                                                <davinci-numeric-field id="NF_ReceiveTimeout"
+                                                                    type="outline" min="0" max="1000000" ticks="1"
+                                                                    group-separator="," decimal-separator="."
+                                                                    format-pattern="0"
+                                                                    title="Set timeout for receive function in ms.">
+                                                                    <crown-edpws-binding property="value"
+                                                                        name="CSK_MultiUDPSocket/OnNewStatusReceiveTimeout"
+                                                                        update-on-resume>
+                                                                    </crown-edpws-binding>
+                                                                    <crown-binding event="change"
+                                                                        name="CSK_MultiUDPSocket/setReceiveTimeout"
+                                                                        path="param/args/time" auto-commit>
+                                                                    </crown-binding>
+                                                                </davinci-numeric-field>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout28"
+                                                                style="align-items: stretch">
+                                                                <layout-row id="RowLayout27">
+                                                                    <layout-column id="ColumnLayout45"
+                                                                        style="align-items: center">
+                                                                        <davinci-checkbox id="CB_WarnOverruns"
+                                                                            title="Set if warnings should be raised if receive function overruns.">
+                                                                            <span></span>
+                                                                            <crown-edpws-binding property="checked"
+                                                                                name="CSK_MultiUDPSocket/OnNewStatusWarnOverruns"
+                                                                                update-on-resume>
+                                                                            </crown-edpws-binding>
+                                                                            <crown-binding event="change"
+                                                                                name="CSK_MultiUDPSocket/setReceiveWarnOverruns"
+                                                                                path="param/args/status" auto-commit>
+                                                                            </crown-binding>
+                                                                        </davinci-checkbox>
+                                                                    </layout-column>
+                                                                    <layout-column id="ColumnLayout46"
+                                                                        style="align-items: center">
+                                                                        <davinci-checkbox id="CB_DiscardIfFull"
+                                                                            title="Set status what frame to drop in case the receive queue is full.">
+                                                                            <span></span>
+                                                                            <crown-edpws-binding property="checked"
+                                                                                name="CSK_MultiUDPSocket/OnNewStatusDiscardIfFull"
+                                                                                update-on-resume>
+                                                                            </crown-edpws-binding>
+                                                                            <crown-binding event="change"
+                                                                                name="CSK_MultiUDPSocket/setReceiveDiscardIfFull"
+                                                                                path="param/args/status" auto-commit>
+                                                                            </crown-binding>
+                                                                        </davinci-checkbox>
+                                                                    </layout-column>
+                                                                </layout-row>
+                                                            </layout-column>
+                                                        </layout-row>
+                                                        <layout-row id="RowLayout3"
+                                                            class="myCustomSpacerVert10_CSK_Module_MultiUDPSocket">
+                                                        </layout-row>
+                                                    </layout-column>
+                                                </layout-row>
+                                            </davinci-tab>
+                                            <davinci-tab id="Tab_Events"
+                                                class="myCustomMarginLeft7PX_CSK_Module_MultiUDPSocket"
+                                                title="Forward content of events" icon="content/forward">
+                                                <layout-row id="RowLayout16">
+                                                    <layout-column id="ColumnLayout18"
+                                                        class="myCustomFrame_CSK_Module_MultiUDPSocket"
+                                                        style="align-items: stretch">
+                                                        <davinci-value-display id="VD_Events"
+                                                            class="myCustomFrameLabel_CSK_Module_MultiUDPSocket"
+                                                            label="Forward Events" style="align-self: flex-start">
+                                                        </davinci-value-display>
+                                                        <curie-callout id="DC_FlowConfigInfo1" type="info"
+                                                            value="FlowConfig priority active.">
+                                                            <crown-edpws-binding property="hidden"
+                                                                name="CSK_MultiUDPSocket/OnNewStatusFlowConfigPriority"
+                                                                update-on-resume
+                                                                converter="function(value) {return !value;}">
+                                                            </crown-edpws-binding>
+                                                        </curie-callout>
+                                                        <layout-row id="RowLayout15">
+                                                            <layout-column id="ColumnLayout17"
+                                                                style="align-items: stretch; flex-grow: 6">
+                                                                <davinci-text-field id="TF_EventToForward" type="text"
+                                                                    label="Event to register:"
+                                                                    title="Register to this event to forward its content to UDP socket.">
+                                                                    <crown-edpws-binding property="value"
+                                                                        name="CSK_MultiUDPSocket/OnNewEventToForward"
+                                                                        update-on-resume>
+                                                                    </crown-edpws-binding>
+                                                                    <crown-binding event="change"
+                                                                        name="CSK_MultiUDPSocket/setEventToForward"
+                                                                        path="param/args/value" auto-commit>
+                                                                    </crown-binding>
+                                                                </davinci-text-field>
+                                                            </layout-column>
+                                                            <layout-column id="ColumnLayout6"
+                                                                style="align-items: stretch">
+                                                                <layout-row id="RowLayout17"
+                                                                    style="justify-content: space-evenly">
+                                                                    <davinci-button id="B_AddEventToForward"
+                                                                        class="myCustomButton_CSK_Module_MultiUDPSocket"
+                                                                        type="primary"
+                                                                        title="Add event to register to and to forward its content to UDP socket.">
+                                                                        <davinci-icon icon="content/add">
+                                                                        </davinci-icon>
+                                                                        <span></span>
+                                                                        <crown-binding event="submit"
+                                                                            name="CSK_MultiUDPSocket/addEventToForwardViaUI"
+                                                                            auto-commit>
+                                                                        </crown-binding>
+                                                                        <crown-edpws-binding property="disabled"
+                                                                            name="CSK_MultiUDPSocket/OnNewStatusFlowConfigPriority"
+                                                                            update-on-resume>
+                                                                        </crown-edpws-binding>
+                                                                    </davinci-button>
+                                                                    <davinci-button id="B_DeleteEventToForward"
+                                                                        class="myCustomButton_CSK_Module_MultiUDPSocket"
+                                                                        type="outline" title="Delete">
+                                                                        <davinci-icon icon="action/delete">
+                                                                        </davinci-icon>
+                                                                        <span></span>
+                                                                        <crown-binding event="submit"
+                                                                            name="CSK_MultiUDPSocket/deleteEventToForwardViaUI"
+                                                                            auto-commit>
+                                                                        </crown-binding>
+                                                                        <crown-edpws-binding property="disabled"
+                                                                            name="CSK_MultiUDPSocket/OnNewStatusFlowConfigPriority"
+                                                                            update-on-resume>
+                                                                        </crown-edpws-binding>
+                                                                    </davinci-button>
+                                                                </layout-row>
+                                                            </layout-column>
+                                                        </layout-row>
+                                                        <curie-table id="DT_EventToForward" selectable
+                                                            select-mode="highlight_row">
+                                                            <curie-table-column id="EventToForward"
+                                                                header="EventToForward">
+                                                            </curie-table-column>
+                                                            <crown-edpws-binding property="data"
+                                                                name="CSK_MultiUDPSocket/OnNewEventToForwardList"
+                                                                update-on-resume>
+                                                            </crown-edpws-binding>
+                                                            <crown-binding event="row-selected"
+                                                                name="CSK_MultiUDPSocket/selectEventToForwardViaUI"
+                                                                path="param/args/selection" auto-commit>
+                                                            </crown-binding>
+                                                        </curie-table>
+                                                    </layout-column>
+                                                </layout-row>
+                                            </davinci-tab>
+                                        </davinci-tabs>
+                                    </stacked-pane>
+                                    <stacked-pane id="SP_LoginNOK" value="false">
+                                        <layout-row id="RowLayout6">
+                                            <davinci-callout id="Callout1" type="info">
+                                                <span>Please log in via UserManagement module.</span>
+                                            </davinci-callout>
+                                        </layout-row>
+                                    </stacked-pane>
+                                    <crown-edpws-binding property="value"
+                                        name="CSK_MultiUDPSocket/OnUserLevelOperatorActive" update-on-resume
+                                        converter="function(value) {return value.toString();}">
+                                    </crown-edpws-binding>
+                                </stacked-view>
+                            </layout-column>
+                        </layout-row>
+                    </layout-column>
+                </layout-row>
+            </stacked-pane>
+            <stacked-pane id="SP_NoSupport" value="false">
+                <layout-row id="RowLayout19">
+                    <layout-column id="ColumnLayout20">
+                        <davinci-callout id="Callout31" type="warning" style="width: 99%">
+                            <span>Module is not supported on this device...</span>
+                        </davinci-callout>
+                        <img id="UI_sample"
+							src="assets/CSK_Module_MultiUDPSocket/UI_sample.png"
+							alt="UI sample">
+                    </layout-column>
+                </layout-row>
+            </stacked-pane>
+            <crown-edpws-binding property="value" name="CSK_MultiUDPSocket/OnNewStatusModuleIsActive" update-on-resume
+                converter="function(value) {return value.toString();}">
+            </crown-edpws-binding>
+        </stacked-view>
+        <stacked-view id="SV_PageCalled">
+            <crown-binding property="value" name="CSK_MultiUDPSocket/pageCalled" path="result/data/empty"
+                auto-update="0" update-on-resume>
+            </crown-binding>
+            <crown-edpws-binding property="value" name="CSK_MultiUDPSocket/OnNewStatusCSKStyle" update-on-resume
+                converter="changeStyle">
+            </crown-edpws-binding>
+        </stacked-view>
+    </layout-column>
+</layout-row>
