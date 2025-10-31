@@ -17,7 +17,6 @@ local function loadAPIs()
   Container = require 'API.Container'
   DateTime = require 'API.DateTime'
   Engine = require 'API.Engine'
-  File = require 'API.File'
   Object = require 'API.Object'
   Timer = require 'API.Timer'
 

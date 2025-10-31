@@ -69,7 +69,7 @@ local function handleTransmitData(data)
     if numberOfBytesTransmitted == 0 then
       _G.logger:warning(nameOfModule .. ": UDP transmit failed")
     else
-      _G.logger:fine(nameOfModule .. ": Send: " .. tostring(data) .. ', size ' .. tostring(numberOfBytesTransmitted) .. 'Bytes')
+      _G.logger:fine(nameOfModule .. ": Sent: " .. tostring(data) .. ' to ' .. tostring(processingParams.ip) .. ':' .. tostring(processingParams.port) .. ', size: ' .. tostring(numberOfBytesTransmitted) .. 'Bytes')
     end
   else
     _G.logger:warning(nameOfModule .. ": No UDP connection.")
@@ -93,7 +93,7 @@ end
 ---@param port int The peer port the data was received from
 local function handleOnReceive(data, ipAddress, port)
 
-  _G.logger:fine(nameOfModule .. ": Received data on instance No. " .. multiUDPSocketInstanceNumberString .. " = " .. data)
+  _G.logger:fine(nameOfModule .. ": Received data on instance No. " .. multiUDPSocketInstanceNumberString .. ' from ' .. tostring(ipAddress) .. ':' .. tostring(port) .. " = " .. tostring(data))
 
   -- Forward data to other modules
   Script.notifyEvent("MultiUDPSocket_OnNewData" .. multiUDPSocketInstanceNumberString, data)

@@ -120,7 +120,7 @@ funcs.createContentList = createContentList
 local function createSpecificJsonList(list, content)
   local commandList = {}
   if content == nil then
-    commandList = {{TriggerCommand = '-', notifyEvent = '-'},}
+    commandList = {{EventToForward = '-'},}
   else
     local size = 0
       for key, value in pairs(content) do

@@ -50,7 +50,7 @@ function multiUDPSocket.create(multiUDPSocketInstanceNo)
   self.multiUDPSocketInstanceNoString = tostring(self.multiUDPSocketInstanceNo)
 
   -- Create parameters etc. for this module instance
-  self.activeInUI = false -- Is current camera selected via UI (see "setSelectedCam")
+  self.activeInUI = false -- Is current instance selected via UI
 
   -- Default values for Persistent data
   -- If available, following values will be updated from data of CSK_PersistentData module (check CSK_PersistentData module for this)
